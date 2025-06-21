@@ -42,7 +42,10 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <div id="message">Tiến Dũng❤️ Thảo Mỹ</div>
+  <div id="message">Tiến Dũng ❤️ Thảo Mỹ</div>
+  <div id="counter" style="position:absolute; top:60%; left:50%; transform:translateX(-50%); color:#ff99cc; font-family:'Segoe UI', sans-serif; font-size:20px; z-index:10; text-align:center;">
+  Đã bên nhau: <span id="loveTime">đang tính...</span>
+</div>
   <audio autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/30/audio_daa6fd5eb2.mp3?filename=love-you-144246.mp3" type="audio/mpeg">
   </audio>
@@ -119,5 +122,23 @@
     resizeCanvas();
     animate();
   </script>
+  <script>
+  function updateLoveTime() {
+    const startDate = new Date("2024-10-27T00:00:00");
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const display = `${days} ngày, ${hours} giờ, ${minutes} phút, ${seconds} giây`;
+    document.getElementById("loveTime").textContent = display;
+  }
+
+  setInterval(updateLoveTime, 1000);
+  updateLoveTime();
+</script>
 </body>
 </html>
