@@ -99,49 +99,7 @@
       transform: scale(1.1);
     }
 
-    /* Album ảnh toàn màn hình */
-    #gallery {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 99;
-    }
-
-    .album {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      max-width: 90%;
-      max-height: 90%;
-      overflow: auto;
-      justify-content: center;
-    }
-
-    .album img {
-      width: 200px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ff66cc;
-      transition: transform 0.3s;
-    }
-
-    .album img:hover {
-      transform: scale(1.1);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: url("https://link_to_your_image.jpg") center center / cover no-repeat;
-      opacity: 0.1;
-      z-index: 0;
-    }
+    
   </style>
 </head>
 <body>
@@ -149,17 +107,105 @@
   <div id="message">Tiến Dũng ❤️ Thảo Mỹ</div>
   <div id="counter">Đã bên nhau: <span id="loveTime">đang tính...</span></div>
 
-  <!-- Ảnh góc dưới mở album -->
-  <img id="memory-btn" src="https://blogger.googleusercontent.com/img/a/AVvXsEgfykZ5sUSdNqiFXsFSNy0IAkYnKleO1ksK3tXKbE0z_Dd0yJzqXHAvozs52DU1abk-YK97NGMuaWPlP23izrVG_4bd1KcqOe9gwIyLHxIN8TWAzkgIj7F2Je90UfOYFwyyUZAjtsikYrXJnC3sLMOd228V0EdcC0_6N05B6q4cgB_gCIffG5Z715syocaw" alt="Ảnh kỷ niệm" onclick="showAlbum()">
+  <!-- Nút mở album -->
+<img id="memory-btn" src="https://blogger.googleusercontent.com/img/a/AVvXsEgfykZ5sUSdNqiFXsFSNy0IAkYnKleO1ksK3tXKbE0z_Dd0yJzqXHAvozs52DU1abk-YK97NGMuaWPlP23izrVG_4bd1KcqOe9gwIyLHxIN8TWAzkgIj7F2Je90UfOYFwyyUZAjtsikYrXJnC3sLMOd228V0EdcC0_6N05B6q4cgB_gCIffG5Z715syocaw" alt="Ảnh kỷ niệm" onclick="showAlbum()">
 
-  <!-- Album ảnh -->
-  <div id="gallery" onclick="hideAlbum()">
-    <div class="album">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhvTXMMAe6FTxXxx0afY96ckECzaqK096v6zvXG_k3sM1Y9c2tHGF0ohmVYh5uN0sYIHNER_W-T1vsxZASeFdP1EGSn98DEbcDld5SjSOelfLG4pkdJKMqLNuiCsUpqK_7bXLOgpkKECEM50YoRuZ60f8IJHyYNm5NkeUP0rKDHHdlWWC4gxA-kWOmi8ZoT" alt="ảnh 1">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgg3SdbZwhVxMMCXwLRRxHAPs-L3-1wGSuDd5spSTloiuSGdbgO2nLZ6PauMm9boWJUitNIyhqTRJT5K2Q5diuuh8Cb1Xl52bXcSt1pONq1HDh8TufdP-gASreRe_kbl7da6aQIwzVzVs1HUt6z4JZvCHZMgez26Mlw694nUT-zmzNHFUZZeqWS7_TL83h0" alt="ảnh 2">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiwEbvxU2-9tpMYm02ofy0UyhJN7BpBJCbjhckLSEuSukvYQ0O7UQ4-Ki_FRz2q0nk4RsLgRf2Wbt3UYOtnyo5SGldGiUtU1gCyVN29wka6gwj3wLef0ZxaFH5ecDva5uHOgVvEoqTgpNYtYNHrSq55P0mHoFtUMNcQRqK-_SFK6VpiFMb1yOI7nMeGhMHh" alt="ảnh 3">
-    </div>
-  </div>
+<!-- Album hiển thị từng ảnh -->
+<div id="gallery">
+  <button class="nav-btn" id="prevBtn">◀</button>
+  <img id="gallery-img" src="" alt="ảnh kỷ niệm">
+  <button class="nav-btn" id="nextBtn">▶</button>
+  <button id="closeBtn">✖ Đóng</button>
+</div>
+
+<style>
+  #gallery {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  #gallery-img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #ff99cc;
+    margin-bottom: 20px;
+  }
+
+  .nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid #ff99cc;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 24px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .nav-btn:hover {
+    background: #ff99cc;
+    color: black;
+  }
+
+  #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ff99cc;
+    color: black;
+    font-size: 18px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #closeBtn:hover {
+    background: #ff66aa;
+  }
+</style>
+
+<script>
+  const albumImages = [
+    "https://blogger.googleusercontent.com/img/a/AVvXsEhvTXMMAe6FTxXxx0afY96ckECzaqK096v6zvXG_k3sM1Y9c2tHGF0ohmVYh5uN0sYIHNER_W-T1vsxZASeFdP1EGSn98DEbcDld5SjSOelfLG4pkdJKMqLNuiCsUpqK_7bXLOgpkKECEM50YoRuZ60f8IJHyYNm5NkeUP0rKDHHdlWWC4gxA-kWOmi8ZoT",
+    "https://blogger.googleusercontent.com/img/a/AVvXsEgg3SdbZwhVxMMCXwLRRxHAPs-L3-1wGSuDd5spSTloiuSGdbgO2nLZ6PauMm9boWJUitNIyhqTRJT5K2Q5diuuh8Cb1Xl52bXcSt1pONq1HDh8TufdP-gASreRe_kbl7da6aQIwzVzVs1HUt6z4JZvCHZMgez26Mlw694nUT-zmzNHFUZZeqWS7_TL83h0",
+    "https://blogger.googleusercontent.com/img/a/AVvXsEiwEbvxU2-9tpMYm02ofy0UyhJN7BpBJCbjhckLSEuSukvYQ0O7UQ4-Ki_FRz2q0nk4RsLgRf2Wbt3UYOtnyo5SGldGiUtU1gCyVN29wka6gwj3wLef0ZxaFH5ecDva5uHOgVvEoqTgpNYtYNHrSq55P0mHoFtUMNcQRqK-_SFK6VpiFMb1yOI7nMeGhMHh"
+  ];
+
+  let currentIndex = 0;
+
+  function showAlbum() {
+    document.getElementById("gallery").style.display = "flex";
+    document.getElementById("gallery-img").src = albumImages[currentIndex];
+  }
+
+  function hideAlbum() {
+    document.getElementById("gallery").style.display = "none";
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % albumImages.length;
+    document.getElementById("gallery-img").src = albumImages[currentIndex];
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + albumImages.length) % albumImages.length;
+    document.getElementById("gallery-img").src = albumImages[currentIndex];
+  }
+
+  document.getElementById("nextBtn").onclick = nextImage;
+  document.getElementById("prevBtn").onclick = prevImage;
+  document.getElementById("closeBtn").onclick = hideAlbum;
+</script>
 
   <!-- Nhạc nền -->
   <iframe width="100%" height="120" scrolling="no" frameborder="no" 
